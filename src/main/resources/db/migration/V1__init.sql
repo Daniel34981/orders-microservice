@@ -135,3 +135,7 @@ values (1, 'Audífonos', 'Over-ear', 120000, null, now(), now()); -- id=1
 
 insert into producto (id_categoria, nombre, descripcion, precio, url_imagen, created_at, updated_at)
 values (1, 'Teclado', 'Mecánico', 350000, null, now(), now());   -- id=2
+
+insert into product_stock(product_id, available_qty, version) values
+                                                                  (1, 50, 0),
+                                                                  (2, 15, 0);

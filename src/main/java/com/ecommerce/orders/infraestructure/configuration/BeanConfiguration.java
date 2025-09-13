@@ -3,13 +3,16 @@ package com.ecommerce.orders.infraestructure.configuration;
 import com.ecommerce.orders.domain.api.IOrderServicePort;
 import com.ecommerce.orders.domain.spi.IOrderPersistencePort;
 import com.ecommerce.orders.domain.spi.IOrderProductPersistencePort;
+import com.ecommerce.orders.domain.spi.IStockPersistencePort;
 import com.ecommerce.orders.domain.usecase.OrderUseCase;
 import com.ecommerce.orders.infraestructure.out.jpa.adapter.OrderJpaAdapter;
 import com.ecommerce.orders.infraestructure.out.jpa.adapter.OrderProductJpaAdapter;
+import com.ecommerce.orders.infraestructure.out.jpa.adapter.StockJpaAdapter;
 import com.ecommerce.orders.infraestructure.out.jpa.mapper.IOrderEntityMapper;
 import com.ecommerce.orders.infraestructure.out.jpa.mapper.IOrderProductEntityMapper;
 import com.ecommerce.orders.infraestructure.out.jpa.repository.IOrderProductRepository;
 import com.ecommerce.orders.infraestructure.out.jpa.repository.IOrderRepository;
+import com.ecommerce.orders.infraestructure.out.jpa.repository.IProductStockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +24,7 @@ public class BeanConfiguration {
     private final IOrderEntityMapper orderEntityMapper;
     private final IOrderProductRepository orderProductRepository;
     private final IOrderProductEntityMapper orderProductEntityMapper;
+    private final IProductStockRepository stockRepository;
 
     @Bean
     public IOrderPersistencePort orderPersistence() {
@@ -33,7 +37,12 @@ public class BeanConfiguration {
     }
 
     @Bean
+    public IStockPersistencePort stockPersistence() {
+        return new StockJpaAdapter(stockRepository);
+    }
+
+    @Bean
     public IOrderServicePort orderService() {
-        return new OrderUseCase(orderPersistence(), orderProductPersistence());
+        return new OrderUseCase(orderPersistence(), orderProductPersistence(), stockPersistence());
     }
 }
