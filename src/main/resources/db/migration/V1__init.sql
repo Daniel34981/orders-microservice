@@ -91,8 +91,8 @@ create index idx_trz_pedido on trazabilidad(id_pedido);
 
 -- Roles
 insert into roles(nombre, descripcion) values
-                                           ('USER', 'Usuario que puede hacer pedidos'),
-                                           ('ADMIN', 'Administrador de todo');
+                                           ('ADMIN', 'Administrador de todo'),
+                                           ('USER', 'Usuario que puede hacer pedidos');
 
 -- Estados si usas catálogo
 insert into estado(nombre) values
@@ -110,7 +110,7 @@ select 'Juan',
        '3001234567',
        '1995-05-15',
        'user@test.com',
-       '{noop}user123',   -- contraseña en texto plano (solo para pruebas)
+       '$2a$10$bF95jhosXHG0eptY.AM/9uYXLoIZ2zm..k/Z73ZvheKBlo9.yn9fG',   -- user123
        id
 from roles where nombre = 'USER';
 
@@ -122,7 +122,7 @@ select 'Ana',
        '3017654321',
        '1990-03-20',
        'admin@test.com',
-       '{noop}admin123',  -- contraseña en texto plano (solo para pruebas)
+       '$2a$10$FEIMQrKNyYznikIwmhdSHuvvQMFTjpmJduGDgKilZiT2uEBfw3qVa',  -- admin123
        id
 from roles where nombre = 'ADMIN';
 
